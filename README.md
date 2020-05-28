@@ -1,2 +1,5 @@
 # cplusplus
-my c++ test code 
+my c++ learning record
+
+#algorithm
+Commonly used algorithms
