@@ -1,6 +1,6 @@
 #include <cstdio>
 
-
+#if 0
 // sizeof class inst
 class sizeofx
 {
@@ -53,19 +53,39 @@ int FuncSizeof3(int (&a)[10])
     printf("int a[] sizeof:%d\n", sizeof(a));
 }
 
+#elif 1
+
+class A {
+public:
+    virtual ~A() {}
+    virtual int Show() {}
+};
+
+class B : public A{
+public:
+    virtual int NewShow() {}
+};
+
+#endif
+
+
 bool TestFuncParamSizeof()
 {
-    int a[10] = {0};
-    FuncSizeof(a);
-    FuncSizeof2(a);
-    FuncSizeof3(a);
+    B b;
+    printf("sizeof B: %lu\n", sizeof(b)) ;
+    printf("sizeof int : %lu\n", sizeof(int));
 
-    int *p = NULL;
-    printf("int *p sizeof :%d\n", sizeof(p));
+    // int a[10] = {0};
+    // FuncSizeof(a);
+    // FuncSizeof2(a);
+    // FuncSizeof3(a);
 
-    printf("long sizeof:%d\n", sizeof(long));
-    printf("long int sizeof:%d\n", sizeof(long int));
-    printf("short sizeof:%d\n", sizeof(short));
+    // int *p = NULL;
+    // printf("int *p sizeof :%d\n", sizeof(p));
+
+    // printf("long sizeof:%d\n", sizeof(long));
+    // printf("long int sizeof:%d\n", sizeof(long int));
+    // printf("short sizeof:%d\n", sizeof(short));
 
     return true;
 }

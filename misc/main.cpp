@@ -11,7 +11,7 @@ int main()
     //TestBinarySearch();
     // TestQuickSort();
 
-    TestSizeofx();
+    // TestSizeofx();
 
     TestFuncParamSizeof();
 
