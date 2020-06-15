@@ -7,6 +7,7 @@
 
 typedef int KEY_VALUE;
 
+//代表每个结点
 typedef struct _rbtree_node {
     unsigned char color;
     struct _rbtree_node *left;
@@ -16,11 +17,13 @@ typedef struct _rbtree_node {
     void *value;
 }rbtree_node;
 
+//代表红黑树结构
 typedef struct _rbtree {
-    rbtree_node *root;
-    rbtree_node *nil;
+    rbtree_node *root; //指向根节点
+    rbtree_node *nil; //代表nil结点 会申请一个节点color=BLACK
 }rbtree;
 
+//查找当前子树下最小的结点
 rbtree_node *rbtree_mini(rbtree *T, rbtree_node *x) {
     while (x->left != T->nil) {
         x = x->left;
@@ -28,6 +31,7 @@ rbtree_node *rbtree_mini(rbtree *T, rbtree_node *x) {
     return x;
 }
 
+//查找当前子树下最大的结点
 rbtree_node *rbtree_maxi(rbtree *T, rbtree_node *x) {
     while (x->right != T->nil) {
         x = x->right;
@@ -36,6 +40,7 @@ rbtree_node *rbtree_maxi(rbtree *T, rbtree_node *x) {
 }
 
 //find x node next successor
+//查找当前结点后继结点 
 rbtree_node *rbtree_successor(rbtree *T, rbtree_node *x) {
     rbtree_node *y = x->parent;
 
@@ -52,6 +57,7 @@ rbtree_node *rbtree_successor(rbtree *T, rbtree_node *x) {
 }
 
 //change six ptr 
+// 左旋
 void rbtree_left_rotate(rbtree *T, rbtree_node *x) {
     rbtree_node *y = x->right;
 
@@ -106,7 +112,7 @@ void rbtree_right_rotate(rbtree *T, rbtree_node *y) {
 void rbtree_insert_fixup(rbtree *T, rbtree_node *z) {
     while (z->parent->color == RED) {
         if (z->parent == z->parent->parent->left) {
-            rbtree_node *y = z->parent->parent->right;
+            rbtree_node *y = z->parent->parent->right; //叔父
             if (y->color == RED) {
                 z->parent->color = BLACK;
                 y->color = BLACK;
@@ -172,17 +178,76 @@ void rbtree_insert(rbtree *T, rbtree_node *z) {
 
     z->left = T->nil;
     z->right = T->nil;
-    z->color = RED;
+    z->color = RED; //插入的结点都是红色结点,尽量不影响黑高
 
+    //插入后修复平衡
     rbtree_insert_fixup(T, z);
 }
 
 void rbtree_delete_fixup(rbtree *T, rbtree_node *x) {
+    while ((x != T->root) && (x->color == BLACK)) {
+        if (x == x->parent->left) {
+            rbtree_node *w = x->parent->right; //兄弟结点 
+            if (w->color == RED) {
+                w->color = BLACK;
+                x->parent->color = RED;
 
+                rbtree_left_rotate(T, x->parent);
+                w = x->parent->right;
+            }
+
+            // left right black
+            if ((w->left->color  == BLACK) && (w->right->color == BLACK)) {
+                w->color = RED;
+                x = x->parent;
+            } else { 
+                if (w->right->color == BLACK) { // right black
+                    w->left->color = BLACK;
+                    w->color = RED;
+                    rbtree_right_rotate(T, w);
+                    w = x->parent->right;
+                }
+
+                //left black
+                w->color = x->parent->color;
+                x->parent->color = BLACK;
+                w->right->color = BLACK;
+                rbtree_left_rotate(T, x->parent);
+                
+                x = T->root;
+            }
+        }else { // x right child
+            rbtree_node *w = x->parent->left; // brother
+            if (w->color == RED) {
+                w->color = BLACK;
+                x->parent->color = RED;
+                rbtree_right_rotate(T, x->parent);
+            }
+
+            if ((w->left->color == BLACK) && (w->right->color == BLACK)) {
+                w->color = RED;
+                x = x->parent;
+            } else {
+                if (w->left->color == BLACK) {
+                    w->right->color = BLACK;
+                    w->color = RED;
+                    rbtree_left_rotate(T, w);
+                    w = x->parent->left;
+                }
+
+                //right black
+                w->color = x->parent->color;
+                x->parent->color = BLACK;
+                w->left->color = BLACK;
+                rbtree_right_rotate(T, x->parent);
+
+                x  = T->root;
+            }
+         }
+    }
 }
 
-    rbtree_node *
-    rbtree_delete(rbtree *T, rbtree_node *z)
+rbtree_node *rbtree_delete(rbtree *T, rbtree_node *z)
 {
     rbtree_node *y = T->nil;
     rbtree_node *x = T->nil;
