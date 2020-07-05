@@ -284,7 +284,7 @@ void mp_free(struct mp_pool_s *pool, void *p) {
 
 int main(int argc, char *argv[]) {
 
-	int size = 1 << 12;
+	int size = 1 << 12; //4096
 
 	struct mp_pool_s *p = mp_create_pool(size);
 
