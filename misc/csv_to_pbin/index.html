@@ -1,0 +1,82 @@
+<html>
+
+<head>
+    <title>U3转表工具</title>
+</head>
+
+<style>
+    .input {
+        outline-style: none;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        /*padding: 14px 14px;*/
+        width: 100%;
+        font-size: 24px;
+        margin: 0 auto;
+        background: #66b1ff;
+        border-color: #66b1ff;
+        color: #fff;
+    }
+
+    .file {
+        position: relative;
+        display: inline-block;
+        background: #D0EEFF;
+        border: 1px solid #99D3F5;
+        border-radius: 4px;
+        padding: 4px 42px;
+        overflow: hidden;
+        color: #1E88C7;
+        text-decoration: none;
+        text-indent: 0;
+        line-height: 20px;
+    }
+
+    .file input {
+        position: absolute;
+        font-size: 100px;
+        right: 0;
+        top: 0;
+        opacity: 0;
+    }
+
+    .file:hover {
+        background: #AADFFD;
+        border-color: #78C3F3;
+        color: #004974;
+        text-decoration: none;
+    }
+</style>
+
+<body>
+    <form name="conv_form" action='conv' enctype="multipart/form-data" method='post'>
+        <span>选择目标分支: </span><select class='file' name="select_server">
+            <option value="u3_main" selected>u3_main</option>
+        </select>
+        <br><br>
+        <label for="_target_scv_list">选择CSV文件: </label>
+        <input type='file' name='_target_scv_list' multiple="mutiple" accept=".csv" class="file" />
+        <br><br>
+        <button type='button' onclick="submit_check()" class="input" >转表</button>
+    </form>
+
+    <div name="output">
+
+    </div>
+
+    <script>
+        function submit_check(){
+            console.log("submit_check function .");
+            var file_input = document.forms["conv_form"]["_target_scv_list"];
+            console.log(file_input.value);
+            if (file_input.value.length > 0) {
+                document.forms["conv_form"].submit();
+            } else {
+                alert("请选择待转CSV文件！");
+            }
+        }
+    </script>
+
+</body>
+
+</html>
