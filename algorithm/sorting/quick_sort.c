@@ -7,8 +7,8 @@ void swap(int* a, int* b){
     *b = tmp;
 }
 
-void quick_sort(int* a, const int left, const int rigth){
-    int mid, key, i= left, j= rigth;
+void quick_sort(int* a, const int left, const int right){
+    int mid, key, i= left, j= right;
     mid = (i + j) / 2;
     key = a[mid];
     if (i >= j) return;
@@ -27,12 +27,12 @@ void quick_sort(int* a, const int left, const int rigth){
     }
     
     quick_sort(a, left,  j);
-    quick_sort(a, j + 1, rigth);         
+    quick_sort(a, j + 1, right);         
 }
 
 //建议使用这个方式
-void quick_sort2(int* a, const int left, const int rigth){
-    int i = left, j = rigth;
+void quick_sort2(int* a, const int left, const int right){
+    int i = left, j = right;
     int privot = a[i];
     if(i >= j) return;
     
@@ -51,7 +51,7 @@ void quick_sort2(int* a, const int left, const int rigth){
     a[i] = privot;
     
     quick_sort(a, left, i-1);
-    quick_sort(a, i+1, rigth);
+    quick_sort(a, i+1, right);
 }
 
 
