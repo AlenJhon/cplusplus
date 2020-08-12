@@ -1,6 +1,12 @@
 #ifndef __STACK_H__
 #define __STACK_H__
 
+/* 这是顺序栈的实现，栈中的每个元素是连续存储的
+ * 初始构建栈先分配n个元素空间，
+ * 空间用完了，则在另外一个地方寻找2*n的空间分配，再把已有的数据元素拷贝到新空间
+ *
+ * */
+
 #include <assert.h> // assert
 #include <stdlib.h>  //calloc realloc
 #include <stdbool.h> // bool
