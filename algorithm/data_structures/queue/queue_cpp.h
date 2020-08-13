@@ -1,3 +1,4 @@
+#include "linked_queue_cpp.h"
 #ifndef AL_QUEUE_CPP_H
 #define AL_QUEUE_CPP_H
 
@@ -31,6 +32,16 @@ inline Queue<T>::Queue(int queueCapacity):capacity(queueCapacity)
     front = rear = 0;
 }
 
+template<typename _TData>
+inline Queue<_TData>::Queue()
+{
+}
+
+template<typename _TData>
+inline Queue<_TData>::~Queue()
+{
+}
+
 template<typename T>
 inline bool Queue<T>::IsEmpty()
 {
@@ -45,6 +56,11 @@ inline T& Queue<T>::Front()
     }
         
     return queue[(front + 1) % capacity];
+}
+
+template<typename _TData>
+inline void Queue<_TData>::Enqueue(const data_type& e)
+{
 }
 
 template<typename T>
@@ -79,6 +95,12 @@ inline void Queue<T>::Dequeue()
     }
     front = (front + 1) % capacity;
     queue[front].~T();
+}
+
+template<typename _TData>
+inline int Queue<_TData>::Clear()
+{
+    return 0;
 }
 
 template<typename T>
