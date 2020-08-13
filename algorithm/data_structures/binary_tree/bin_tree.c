@@ -150,15 +150,29 @@ int bstree_traversal(struct bstree_node *node) {
     return 0;
 }
 
+//int bstree_traversal(struct bstree_node* node) {
+//    if (node) {
+//        if (node->bst.left) {
+//            bstree_traversal(node->bst.left);
+//        }
+//        printf("%4d", node->data);
+//        if (node->bst.right) {
+//            bstree_traversal(node->bst.right);
+//        }
+//    }
+//}
+
+
 #define ARRAY_LENGTH    20
 int main() {
 
-    int keyArray[ARRAY_LENGTH] = {24,25,13,35,23, 26,67,47,38,98, 20,13,17,49,12, 21,9,18,14,15};
+    //int keyArray[ARRAY_LENGTH] = {24,25,13,35,23, 26,67,47,38,98, 20,13,17,49,12, 21,9,18,14,15};
+    int keyArray[] = {10,5,11,4,7};
 
     struct bstree T = {0};
     int i = 0;
-    for (i = 0; i < ARRAY_LENGTH; i++) {
-    bstree_insert(&T, keyArray[i]);
+    for (i = 0; i < sizeof(keyArray)/sizeof(int); i++) {
+        bstree_insert(&T, keyArray[i]);
     }
 
     bstree_traversal(T.root);

@@ -49,8 +49,8 @@ public:
 
     void Clear(BstNode<Type>* curNode);
     Boolean Insert(const Element<Type>& x);
-    BstNode<Type>* Search(const Element<Type>& x);
-    BstNode<Type>* IterSearch(const Element<Type>& x);
+    BstNode<Type>* Search(const Element<Type>& x);//µ›πÈ≤È’“
+    BstNode<Type>* IterSearch(const Element<Type>& x); //±È¿˙≤È’“
 
     void InOrder();
     void LevelOrder();
