@@ -1,9 +1,10 @@
 #ifndef AL_ARRAY_GRAPH_CPP_H
 #define AL_ARRAY_GRAPH_CPP_H
 #include <stack>
+#include <queue>
 
 /* 用二维数组存储图中各个顶点之间的关系，是一种比较浪费空间的方式，只是提供学习使用，
- * 为了观察DFS遍历的过程
+ * 为了观察DFS/BFS遍历的过程
  * DFS深度优先搜索算法，该算法的主要使用场景是，在图中找AB两点是否能通
  */
 
@@ -27,6 +28,7 @@ namespace al {
         void PrintMatrix();
         void ShowVertex(int v);
         void DFS();
+        void BFS();
     private:
         int GetAdjUnvisitedVertex(int x);
 
@@ -41,6 +43,30 @@ namespace al {
                 std::cout << adjMat_[i][j] << " ";
             }
             std::cout << std::endl;
+        }
+    }
+
+    void GraphArray::BFS() {
+        std::queue<int> q;
+        vertexList_[0]->visited_ = true;
+        ShowVertex(0);
+        q.push(0);
+
+        while (!q.empty()) {
+            int v = q.front();
+            q.pop();
+            int next = GetAdjUnvisitedVertex(v);
+            while (next != -1) {
+                vertexList_[next]->visited_ = true;
+                ShowVertex(next);
+                q.push(next);
+                next = GetAdjUnvisitedVertex(v);
+            }
+        }
+        std::cout << std::endl;
+
+        for (int i = 0; i < nVerts_; ++i) {
+            vertexList_[i]->visited_ = false;
         }
     }
 

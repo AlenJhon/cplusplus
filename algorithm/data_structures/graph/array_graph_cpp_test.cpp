@@ -27,6 +27,9 @@ int main() {
 
     cout << "DFS Result:";
     ga.DFS();
+    cout << "BFS Result:";
+    ga.BFS();
+    cout << endl;
 
     return 0;
 }
