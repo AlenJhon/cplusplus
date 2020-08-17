@@ -109,9 +109,9 @@ void rbtree_right_rotate(rbtree *T, rbtree_node *y) {
 
 }
 
-void rbtree_insert_fixup(rbtree *T, rbtree_node *z) {
+void rbtree_insert_fixup(rbtree *T, rbtree_node *z) {//z 是插入节点
     while (z->parent->color == RED) {
-        if (z->parent == z->parent->parent->left) {
+        if (z->parent == z->parent->parent->left) { // z 的父亲是祖父的左孩子
             rbtree_node *y = z->parent->parent->right; //叔父
             if (y->color == RED) {
                 z->parent->color = BLACK;
@@ -163,7 +163,8 @@ void rbtree_insert(rbtree *T, rbtree_node *z) {
         } else if (z->key > x->key) {
             x = x->right;
         } else { // Exist
-            return ;
+            printf("key:%d exists.\n", z->key);
+            return ;   //这里没有对存在的数据进行处理直接给返回了
         }
     }
 
@@ -267,9 +268,10 @@ rbtree_node *rbtree_delete(rbtree *T, rbtree_node *z)
     }
 
     //delete y
-    if (x != T->nil) {
-        x->parent = y->parent;
-    }
+    //if (x != T->nil) {
+    //    x->parent = y->parent;
+    //}
+    x->parent = y->parent;
     if (y->parent == T->nil) {
         T->root = x;
     } else if (y == y->parent->left) {
@@ -306,18 +308,22 @@ rbtree_node * rbtree_search(rbtree *T, KEY_VALUE key) {
     return T->nil;
 }
 
-void rbtree_traversal(rbtree *T, rbtree_node *node) {
+void rbtree_traversal(rbtree *T, rbtree_node *node, int idx) {
     if (node != T->nil) {
-        rbtree_traversal(T, node->left);
-        printf("key:%d, color:%d\n", node->key, node->color);
-        rbtree_traversal(T, node->right);
+        rbtree_traversal(T, node->left, 2*idx + 1);
+        if (node != T->nil) {
+            printf("key:%d, idx:%d color:%s\n", node->key, idx, node->color == RED ? "RED" : "BLACK");
+        }
+        rbtree_traversal(T, node->right, 2*idx + 2);
     }
 }
 
 
 int main() {
 
-    int keyArray[20] = {24, 25, 13, 35, 23, 26, 67, 47, 38, 98, 20, 19, 17, 49, 12, 21, 9, 18, 14, 15};
+    int keyArray[] = {15, 23, 77, 32, 65, 18, 89, 43};
+    int arrLen = sizeof(keyArray) / sizeof(int);
+
     rbtree *T = (rbtree *)malloc(sizeof(rbtree));
     if (T ==  NULL) {
         printf("malloc failed\n");
@@ -330,7 +336,7 @@ int main() {
 
     rbtree_node *node = T->nil;
     int i = 0;
-    for (i = 0; i < 20; i++) {
+    for (i = 0; i < arrLen; i++) {
         node = (rbtree_node *)malloc(sizeof(rbtree_node));
         node->key = keyArray[i];
         node->value = NULL;
@@ -338,23 +344,23 @@ int main() {
         rbtree_insert(T, node);
     }
 
-    rbtree_traversal(T, T->root);
-    printf("+++++++++++++++++++++++++++++++++++++++\n");
+    rbtree_traversal(T, T->root, 0);
+    //printf("+++++++++++++++++++++++++++++++++++++++\n");
 
-    for (i = 0; i < 20; i++) {
-        rbtree_node *node = rbtree_search(T, keyArray[i]);
-        if (node != T->nil) {
-            printf("rbtree_search %d ok\n", keyArray[i]);
-        }
-        else {
-            printf("rbtree_search %d failed\n", keyArray[i]);
-        }
-        rbtree_node* pur = rbtree_delete(T, node);
-        free(pur);
+    //for (i = 0; i < arrLen; i++) {
+    //    rbtree_node* node = rbtree_search(T, keyArray[i]);
+    //    if (node != T->nil) {
+    //        printf("rbtree_search %d ok\n", keyArray[i]);
+    //    }
+    //    else {
+    //        printf("rbtree_search %d failed\n", keyArray[i]);
+    //    }
+    //    rbtree_node* pur = rbtree_delete(T, node);
+    //    free(pur);
 
-        rbtree_traversal(T, T->root);
-        printf("idx:%d, key:%d\n", i, keyArray[i]);
-    }
+    //    rbtree_traversal(T, T->root);
+    //    printf("idx:%d, key:%d\n", i, keyArray[i]);
+    //}
 
     return 0;
 }
