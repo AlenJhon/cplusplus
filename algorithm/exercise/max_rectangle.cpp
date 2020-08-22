@@ -20,60 +20,60 @@ using namespace std;
 #define MAX(x,y) (x)>=(y)?(x):(y)
 
 int MaxRecFromBotton(int* pBotton, int len){
-	if (!pBotton || len < 1){
-		return 0;
-	}
-	int maxArea = 0;
-	stack<int> s;
-	for (int i=0; i < len; ++i){
-		while (!s.empty() && pBotton[i] <= pBotton[s.top()]){
-			int j = s.top();
-			s.pop();
-			int k = s.empty() ? -1 : s.top();
-			int curArea = (i - k - 1) * pBotton[j];
-			maxArea =  MAX(maxArea, curArea);
-		}
-		s.push(i);
-	}
+    if (!pBotton || len < 1){
+        return 0;
+    }
+    int maxArea = 0;
+    stack<int> s; //存放的是下标
+    for (int i=0; i < len; ++i){
+        while (!s.empty() && pBotton[i] <= pBotton[s.top()]){
+            int j = s.top();
+            s.pop();
+            int k = s.empty() ? -1 : s.top();
+            int curArea = (i - k - 1) * pBotton[j];
+            maxArea =  MAX(maxArea, curArea);
+        }
+        s.push(i);
+    }
 
-	while (!s.empty()){
-		int j = s.top();
-		s.pop();
-		int k = s.empty() ? -1 : s.top();
-		int curArea = (len - k - 1) * pBotton[j];//
-		maxArea = MAX(maxArea, curArea);
-	}
-	return maxArea;
+    while (!s.empty()){
+        int j = s.top();
+        s.pop();
+        int k = s.empty() ? -1 : s.top();
+        int curArea = (len - k - 1) * pBotton[j];//
+        maxArea = MAX(maxArea, curArea);
+    }
+    return maxArea;
 }
 
 int MaxRecSize(int prec[][5], int len, int hei){
-	if (!prec || len < 1 || hei < 1){
-		return 0;
-	}
-	int iMaxArea = 0;
-	int* pheight = new int[len];
-	memset(pheight, 0, len * sizeof(int));
+    if (!prec || len < 1 || hei < 1){
+        return 0;
+    }
+    int iMaxArea = 0;
+    int* pheight = new int[len];
+    memset(pheight, 0, len * sizeof(int));
 
-	for (int i=0; i < hei; ++i){
-		for (int j=0; j < len; ++j){
-			pheight[j] = prec[i][j] == 0 ? 0 : pheight[j] + 1;
-		}
+    for (int i=0; i < hei; ++i){
+        for (int j=0; j < len; ++j){
+            pheight[j] = prec[i][j] == 0 ? 0 : pheight[j] + 1;
+        }
 
-		iMaxArea = MAX(MaxRecFromBotton(pheight, len), iMaxArea);
-	}
-	return iMaxArea;
+        iMaxArea = MAX(MaxRecFromBotton(pheight, len), iMaxArea);
+    }
+    return iMaxArea;
 }
 
 
 
 int main() {
-	int arr[5][5] = {
-		1, 0, 1, 0, 0,
-		0, 1, 1, 0, 1,
-		1, 1, 1, 1, 0,
-		1, 1, 1, 1, 1,
-		1, 1, 1, 1, 1,
-	};	
-	cout << MaxRecSize(arr, 5, 5) << endl;
+    int arr[5][5] = {
+        1, 0, 1, 0, 0,
+        0, 1, 1, 0, 1,
+        1, 1, 1, 1, 0,
+        1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1,
+    };	
+    cout << MaxRecSize(arr, 5, 5) << endl;
     return 0;
 }

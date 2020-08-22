@@ -12,62 +12,62 @@ using namespace std;
 
 
 void Max1Rows(int arr[][10], int len, int hei){
-	int max = 0;
-	stack<int> s;
+    int max = 0;
+    stack<int> s;
 
-	int j = len - 1;
-	for (int i = 0; i < hei; ++i){
-		int rowc = 0;
+    int j = len - 1;
+    for (int i = 0; i < hei; ++i){
+        int rowc = 0;
 
-		for (; j >= 0; --j){
-			if (arr[i][j] == 1)	{
-				rowc += 1;
-			} else {
-				--j;
-				break;
-			}
-		}
-		j += 1;
+        for (; j >= 0; --j){
+            if (arr[i][j] == 1)	{
+                rowc += 1;
+            } else {
+                --j;
+                break;
+            }
+        }
+        j += 1;
 
-		if (arr[i][j] == 0){
-			continue;
-		} else {
-			rowc = len - j;		
-		}
+        if (arr[i][j] == 0){
+            continue;
+        } else {
+            rowc = len - j;		
+        }
 
-		if (max < rowc){
-			while (!s.empty()){
-				s.pop();
-			}
-			s.push(i);
-			max = rowc;
-		} else if (max == rowc){
-			s.push(i);
-		}		
-	}
+        if (max < rowc){
+            while (!s.empty()){
+                s.pop();
+            }
+            s.push(i);
+            max = rowc;
+        } else if (max == rowc){
+            s.push(i);
+        }
+    }
 
-	while (!s.empty()){
-		cout << s.top() << endl;
-		s.pop();
-	}
+    while (!s.empty()){
+        cout << s.top() << endl;
+        s.pop();
+    }
 }
 
 
 int main(){
 
-	int arr[10][10] = {
-		1,1,1,1,1,1,1,1,1,1,
-		0,0,0,0,1,1,1,1,1,1,
-		0,0,0,1,1,1,1,1,1,1,
-		0,0,1,1,1,1,1,1,1,1,
-		0,1,1,1,1,1,1,1,1,1,
-		1,1,1,1,1,1,1,1,1,1,
-		0,0,0,0,0,1,1,1,1,1,
-		0,0,0,0,1,1,1,1,1,1,
-		0,0,0,1,1,1,1,1,1,1,
-		1,1,1,1,1,1,1,1,1,1,
-	};
-	Max1Rows(arr, 10, 10);
+    int arr[10][10] = {
+        1,1,1,1,1,1,1,1,1,1,
+        0,0,0,0,1,1,1,1,1,1,
+        0,0,0,1,1,1,1,1,1,1,
+        0,0,1,1,1,1,1,1,1,1,
+        0,1,1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,1,1,
+        0,0,0,0,0,1,1,1,1,1,
+        0,0,0,0,1,1,1,1,1,1,
+        0,0,0,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,1,1,
+    };
+    Max1Rows(arr, 10, 10);
 
-	return 0;
+    return 0;
 }
