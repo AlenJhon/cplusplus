@@ -8,6 +8,9 @@ int main()
     const int NEG_INF = -99999;
     RedBlackTree<int> t(NEG_INF);
 
+    t.insert(NEG_INF);
+
+#if 0
     t.insert(50);
     t.insert(40);
     t.insert(30);
@@ -50,5 +53,7 @@ int main()
 
 
     cout << "OK" << endl;
+
+#endif
     return 0;
 }
