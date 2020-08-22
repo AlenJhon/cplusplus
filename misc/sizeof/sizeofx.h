@@ -69,11 +69,19 @@ public:
 #endif
 
 
+struct eth {
+    char a[6];
+    char b[6];
+    short c;
+};
+
 bool TestFuncParamSizeof()
 {
     B b;
     printf("sizeof B: %lu\n", sizeof(b)) ;
     printf("sizeof int : %lu\n", sizeof(int));
+
+    printf("sizeof eth=%lu", sizeof(eth));
 
     // int a[10] = {0};
     // FuncSizeof(a);
