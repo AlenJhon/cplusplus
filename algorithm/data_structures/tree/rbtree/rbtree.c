@@ -120,12 +120,12 @@ void rbtree_insert_fixup(rbtree *T, rbtree_node *z) {//z 是插入节点
 
                 z = z->parent->parent;
             } else {
-                if (z == z->parent->right) {
-                    z = z->parent;
-                    rbtree_left_rotate(T, z);
+                if (z == z->parent->right) { //左右类型 先左旋
+                    z = z->parent;           //调整旋转基点
+                    rbtree_left_rotate(T, z);//左旋
                 }
 
-                z->parent->color = BLACK;
+                z->parent->color = BLACK;    
                 z->parent->parent->color = RED;
                 rbtree_right_rotate(T, z->parent->parent);
             }
@@ -168,7 +168,7 @@ void rbtree_insert(rbtree *T, rbtree_node *z) {
         }
     }
 
-    z->parent = y;
+    z->parent = y; //插入节点的父节点
     if (y == T->nil) {
         T->root = z;
     } else if (z->key < y->key) {
@@ -185,6 +185,7 @@ void rbtree_insert(rbtree *T, rbtree_node *z) {
     rbtree_insert_fixup(T, z);
 }
 
+//x 是用户删除指定节点的后继节点的孩子节点，有可能是NIL节点
 void rbtree_delete_fixup(rbtree *T, rbtree_node *x) {
     while ((x != T->root) && (x->color == BLACK)) {
         if (x == x->parent->left) {
@@ -194,7 +195,7 @@ void rbtree_delete_fixup(rbtree *T, rbtree_node *x) {
                 x->parent->color = RED;
 
                 rbtree_left_rotate(T, x->parent);
-                w = x->parent->right;
+                w = x->parent->right;  //左旋之前w节点的右孩子
             }
 
             // left right black
@@ -223,6 +224,7 @@ void rbtree_delete_fixup(rbtree *T, rbtree_node *x) {
                 w->color = BLACK;
                 x->parent->color = RED;
                 rbtree_right_rotate(T, x->parent);
+                w = x->parent->left;
             }
 
             if ((w->left->color == BLACK) && (w->right->color == BLACK)) {
@@ -249,18 +251,20 @@ void rbtree_delete_fixup(rbtree *T, rbtree_node *x) {
 }
 
 rbtree_node *rbtree_delete(rbtree *T, rbtree_node *z)
-{
+{   //z 指定删除节点
+    //y 后继节点
+    //x 后继节点孩子节点
     rbtree_node *y = T->nil;
     rbtree_node *x = T->nil;
 
-    //find y
+    //find y   后继节点
     if ( (z->left == T->nil) || (z->right == T->nil)) {
         y = z;
     } else {
         y = rbtree_successor(T, z);
     }
 
-    //find x
+    //find x 后继节点的孩子，如果有的话
     if (y->left != T->nil) {
         x = y->left;
     } else if (y->right != T->nil) {
@@ -271,6 +275,7 @@ rbtree_node *rbtree_delete(rbtree *T, rbtree_node *z)
     //if (x != T->nil) {
     //    x->parent = y->parent;
     //}
+    //删除后继节点
     x->parent = y->parent;
     if (y->parent == T->nil) {
         T->root = x;
@@ -280,7 +285,8 @@ rbtree_node *rbtree_delete(rbtree *T, rbtree_node *z)
         y->parent->right = x;
     }
 
-    //recover z / remove z
+    //recover z / remove z 
+    //如果后继不是 z 将后继的数据覆盖z中的数据
     if (y != z) {
         z->key = y->key;
         z->value = y->value;
@@ -291,7 +297,7 @@ rbtree_node *rbtree_delete(rbtree *T, rbtree_node *z)
         rbtree_delete_fixup(T, x);
     }
 
-    return y;
+    return y; //返回真正删除的节点
 }
 
 rbtree_node * rbtree_search(rbtree *T, KEY_VALUE key) {
