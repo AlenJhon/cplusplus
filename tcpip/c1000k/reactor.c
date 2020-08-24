@@ -18,7 +18,7 @@
 #define MAX_EPOLL_ITEM      102400 //con
 #define SERVER_PORT         8888
 
-#define LISTEN_PORT_COUNT	100
+#define LISTEN_PORT_COUNT   1
 
 typedef int NCALLBACK(int ,int, void*);
 
