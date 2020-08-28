@@ -20,6 +20,7 @@ find_median_sorted_arrays(int *nums1, int nums1size, int *nums2, int nums2size) 
     headpos = 0;
     tailpos = 2 * nums1size;
     
+    //通过二分查找找到两个数组的中间位置
     while (headpos <= tailpos) {
         half1 = headpos + (tailpos - headpos) / 2;
         half2 = halfsize - half1;
