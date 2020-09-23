@@ -1,6 +1,7 @@
 #include <iostream>
 // #include "myalgorithm_test.h"
-#include "sizeofx.h"
+// #include "sizeofx.h"
+#include "sizeof_class.h"
 
 using namespace std;
 
@@ -13,7 +14,9 @@ int main()
 
     // TestSizeofx();
 
-    TestFuncParamSizeof();
+    // TestFuncParamSizeof();
+
+    TestSizeofClass();
 
     return 0;
 }

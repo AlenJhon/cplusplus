@@ -1,0 +1,70 @@
+Class <anonymous struct>
+   size=8 align=4
+   base size=8 base align=4
+<anonymous struct> (0x0x7f71614f1780) 0
+
+Class <anonymous struct>::<anonymous union>
+   size=4 align=4
+   base size=4 base align=4
+<anonymous struct>::<anonymous union> (0x0x7f71614f1840) 0
+
+Class <anonymous struct>
+   size=8 align=4
+   base size=8 base align=4
+<anonymous struct> (0x0x7f71614f17e0) 0
+
+Class <anonymous struct>
+   size=16 align=8
+   base size=16 base align=8
+<anonymous struct> (0x0x7f71614f18a0) 0
+
+Class <anonymous struct>
+   size=16 align=8
+   base size=16 base align=8
+<anonymous struct> (0x0x7f71614f1900) 0
+
+Class _IO_marker
+   size=24 align=8
+   base size=24 base align=8
+_IO_marker (0x0x7f71614f1960) 0
+
+Class _IO_FILE
+   size=216 align=8
+   base size=216 base align=8
+_IO_FILE (0x0x7f71614f19c0) 0
+
+Class <anonymous struct>
+   size=32 align=8
+   base size=32 base align=8
+<anonymous struct> (0x0x7f71614f1a20) 0
+
+Vtable for ZooAnimal
+ZooAnimal::_ZTV9ZooAnimal: 5u entries
+0     (int (*)(...))0
+8     (int (*)(...))(& _ZTI9ZooAnimal)
+16    (int (*)(...))ZooAnimal::~ZooAnimal
+24    (int (*)(...))ZooAnimal::~ZooAnimal
+32    (int (*)(...))ZooAnimal::rotate
+
+Class ZooAnimal
+   size=16 align=8
+   base size=16 base align=8
+ZooAnimal (0x0x7f71614f1a80) 0
+    vptr=((& ZooAnimal::_ZTV9ZooAnimal) + 16u)
+
+Vtable for Bear
+Bear::_ZTV4Bear: 5u entries
+0     (int (*)(...))0
+8     (int (*)(...))(& _ZTI4Bear)
+16    (int (*)(...))Bear::~Bear
+24    (int (*)(...))Bear::~Bear
+32    (int (*)(...))Bear::rotate
+
+Class Bear
+   size=24 align=8
+   base size=20 base align=8
+Bear (0x0x7f71614e9138) 0
+    vptr=((& Bear::_ZTV4Bear) + 16u)
+  ZooAnimal (0x0x7f71614f1ae0) 0
+      primary-for Bear (0x0x7f71614e9138)
+
