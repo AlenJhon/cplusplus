@@ -33,23 +33,23 @@ void quick_sort(int* a, const int left, const int right){
 //建议使用这个方式
 void quick_sort2(int* a, const int left, const int right){
     int i = left, j = right;
-    int privot = a[i];
+    int pivot = a[i];
     if(i >= j) return;
     
     while(i < j){
-        
-        while (i < j && privot < a[j]){
+
+        while (i < j && pivot < a[j]) {
             j--;
         }
         a[i] = a[j];
-        
-        while(i < j && privot > a[i]){
+
+        while (i < j && pivot > a[i]) {
             i++;
         }
         a[j] = a[i];
     }
-    a[i] = privot;
-    
+    a[i] = pivot;
+
     quick_sort(a, left, i-1);
     quick_sort(a, i+1, right);
 }
