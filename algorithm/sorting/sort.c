@@ -28,7 +28,7 @@ void bubble_sort2(int *pdata, int ilength)
     for (int i = 0; i<ilength; i++){
         
         is_exchange = 0;
-        for(int j=ilength-1; j>0; j--){
+        for(int j=ilength-1-i; j>0; j--){
 
             if(pdata[j] < pdata[j-1]){
                 itemp = pdata[j];
