@@ -1,0 +1,24 @@
+{
+    "cluster": 21,
+    "promtail":{
+        "http_listen_port":9080,
+        "positions_filename":"/tmp/positions.yaml",
+        "loki_url":"http://192.168.1.71:3100/loki/api/v1/push",
+        "job_lists":[
+            {
+                "job_name":"promtail-{idx}",
+                "job":"{cluster}-{world}",
+                "hosts":"dev-robots-21",
+                "world":1,
+                "path":"/data/u3/{cluster}.{world}/log/*/*.log"
+            },
+            {
+                "job_name": "promtail-{idx}",
+                "job": "{cluster}-{world}",
+                "hosts": "dev-robots-22",
+                "world": 2,
+                "path": "/data/u3/{cluster}.{world}/log/*/*.log"
+            }
+        ]
+    }
+}

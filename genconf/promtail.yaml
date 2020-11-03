@@ -1,0 +1,26 @@
+server:
+  http_listen_port: 9080
+
+positions:
+  filename: /tmp/positions.yaml #记录当前日志采集状态的文件地址(promtail自动生产)
+
+clients:
+  - url: http://192.168.1.71:3100/loki/api/v1/push #采集的日志投递loki的地址
+
+scrape_configs:
+- job_name: promtail-1
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: 21-1
+      hosts: dev-robots-21
+      __path__: /data/u3/21.1/log/*/*.log # log path
+- job_name: promtail-2
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: 21-2
+      hosts: dev-robots-22
+      __path__: /data/u3/21.2/log/*/*.log # log path
