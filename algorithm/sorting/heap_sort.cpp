@@ -1,12 +1,12 @@
 #include <iostream>
-//#include "data_structures/heap/max_heap_cpp.h"   //Ê¹ÓÃÐ´ºÃµÄ¶Ñ½øÐÐÅÅÐò
+//#include "data_structures/heap/max_heap_cpp.h"   //Ê¹ï¿½ï¿½Ð´ï¿½ÃµÄ¶Ñ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 using namespace std;
 
 
 //build cmd   g++ heap_sort.cpp -I ..
-//ÀûÓÃ´ó¸ù¶Ñ½øÐÐÅÅÐò
-//Ê±¼ä¸´ÔÓ¶ÈO(nlogn)
+//ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½Ñ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//Ê±ï¿½ä¸´ï¿½Ó¶ï¿½O(nlogn)
 
 void swap(int* a, int* b) {
     int tmp = *a;
@@ -14,7 +14,7 @@ void swap(int* a, int* b) {
     *b = tmp;
 }
 
-//¼ì²é ½ÚµãÊÇ·ñÐèÒªÏÂ³Á
+//ä»Žä¸‹æ ‡startåˆ°endä¹‹é—´æž„å»ºä¸€ä¸ªå¤§æ ¹å †
 void make_max_heap(int* arr, int start, int end) {
     int dad = start;
     int son = dad * 2 + 1;
@@ -23,6 +23,23 @@ void make_max_heap(int* arr, int start, int end) {
             son++;
         }
         if (arr[dad] > arr[son]) {
+            return;
+        } else {
+            swap(&arr[dad], &arr[son]);
+            dad = son;
+            son = dad * 2 + 1;
+        }
+    }
+}
+
+void make_min_heap(int* arr, int start, int end) {
+    int dad = start;
+    int son = dad * 2 + 1;
+    while (son <= end) {
+        if (son + 1 <= end && arr[son] > arr[son + 1]) {
+            son++;
+        }
+        if (arr[dad] < arr[son]) {
             return;
         } else {
             swap(&arr[dad], &arr[son]);
@@ -45,7 +62,7 @@ void TrickleDown(int* arr, int idx, int end) {
     if (son + 1 <= end && arr[son] < arr[son + 1]) {
         son += 1;
     }
-    if (arr[idx] < arr[son]) { //´ó¸ù¶ÑÐ¡µÄÏÂ³Á
+    if (arr[idx] < arr[son]) { //å°æ ¹å †å°çš„å¾€ä¸‹æ²‰
         swap(arr + idx, arr + son);
     }
 
@@ -55,18 +72,21 @@ void TrickleDown(int* arr, int idx, int end) {
 
 void heap_sort(int* arr, int len) {
     int i;
-    //Éú³ÉÒ»¸ö´ó¸ù¶Ñ£¬´Ó×îºóµÄÒ»¸ö¸¸½Úµã¿ªÊ¼²é¿´ÏÂ³Á£¬²»Í£µÄ²é¿´ÏòÏÂÉøÍ¸
+    //ç”Ÿæˆä¸€ä¸ªå¤§æ ¹å †ï¼Œä»Žæœ€åŽçš„ä¸€ä¸ªçˆ¶èŠ‚ç‚¹å¼€å§‹æŸ¥çœ‹ä¸‹æ²‰ï¼Œä¸åœçš„æŸ¥çœ‹å‘ä¸‹æ¸—é€
+    //ä»Žå€’æ•°ç¬¬äºŒæŽ’å¼€å§‹å¾€ä¸ŠæŸ¥çœ‹å°çš„å¾€ä¸‹æ²‰ï¼Œå¤§çš„å¾€ä¸Šæµ®,æ˜¯ä¸€ä¸ªå¤§æ ¹å †çš„ç»“æž„ç‰¹ç‚¹ï¼Œæ–¹ä¾¿åŽé¢å¤§çš„å¾€åŽé¢æ”¾å½¢æˆæœ‰åºçš„ä¸€ä¸ªå°æ ¹å †
     for (i = len / 2 - 1; i >= 0; --i) {
-        //make_max_heap(arr, i, len - 1);  
-        TrickleDown(arr, i, len - 1);
+        // make_max_heap(arr, i, len - 1);  
+        make_min_heap(arr, i, len -1 );
+        // TrickleDown(arr, i, len - 1);
     }
     
 
-    //²»Í£µÄ´Ó¶ÑÖÐÈ¡³ö×î´óµÄÔªËØ£¬
+    //ä¸åœçš„ä»Žå †ä¸­å–å‡ºæœ€å¤§çš„å…ƒç´ ï¼Œ
     for (i = len - 1; i > 0; --i) {
         swap(&arr[0], &arr[i]);
-        //make_max_heap(arr, 0, i - 1);
-        TrickleDown(arr, 0, i-1);
+        // make_max_heap(arr, 0, i - 1);
+        make_min_heap(arr, 0, i-1);
+        // TrickleDown(arr, 0, i-1);
     }
 }
 
@@ -89,7 +109,7 @@ int main() {
     }   
     h.Show(0);
 
-    //´Ó´ó¸ù¶ÑÖÐÒ»¸ö¸öÈ¡³öÐ´ÈëÊý¾ÝµÈÍ¬ÓÚ´Ó´óµ½Ð¡ÅÅÐò
+    //ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½Í¬ï¿½Ú´Ó´ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½
     for (int i = 0; i < len; ++i) {
         arr[i] = h.Top();
         h.Pop();
