@@ -3,10 +3,12 @@
 
 using namespace std;
 
-int xx=5,yy=4;//边界
+int xx=5,yy=4;//边界 5行4列
 int a[100][100];//地图 1表示障碍 2表示访问过
 int sx=1,sy=1,p=4,q=3;//起点，终点
-int min = 9999999;
+int min = 9999999; //记录最短步数
+//顺时针四个方向上的偏移
+//up (0,1) right (1,0) down (0,-1)  left (-1,0)
 int dx[4] = {0,1,0,-1};
 int dy[4] = {1,0,-1,0};
 
