@@ -23,7 +23,7 @@ void permutations(char* a, int left, int rigth){
 }
 
 int main(){
-    char s[] = {"ab"};
+    char s[] = {"abc"};
     int rigth = sizeof(s)/sizeof(char) - 1;
     printf("rigth=%d\n", rigth);
     permutations(s, 0, rigth);

@@ -109,7 +109,7 @@ int main(void){
     const char *text = "abcdefgsaddfdaferqefadsvdsadqwerqefsadfd";
     const char *pattern = "erqe";
 
-    printf("text before kmp strlen:%d\n", strlen(text));
+    printf("text before kmp strlen:%lu\n", strlen(text));
     int idx = kmp(text, pattern, next);
     printf("kmp return idx:%d\n", idx);
 

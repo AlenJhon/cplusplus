@@ -1,12 +1,35 @@
 #ifndef AL_BINARY_BTREE_H
 #define AL_BINARY_BTREE_H
 
-/*����������ļ�ʵ�֣�Ԫ�ز����ظ����룬
+/*二叉查找树的简单实现，元素不能重复插入，
  *
  *
+ *
+实现前序中序后序不用递归方式
+借用栈的数据结构实现
+前序
+先将头节点入栈
+1.弹出打印
+2.如果有右子树,右节点入栈
+3.如果有左子树,左节点入栈 
+
+
+中序
+先将头节点入栈
+1.弹出加入新的栈
+2.如果有左子树,左节点入栈
+3.如果有右子树,右节点入栈 
+将新的栈依次弹出并输出得到最终结果
+
+后序
+1.斜着将左节点都入栈直到没有左节点
+2.第一步执行不下去了,往右子树重复1步骤,直到没有右子树
+3.元素从栈顶弹出,并打印
+
 */
 
 #include <queue> //for level order
+#include <stack> //用于非递归实现前中后遍历二叉树
 
 namespace al {
 
@@ -49,11 +72,14 @@ public:
 
     void Clear(BstNode<Type>* curNode);
     Boolean Insert(const Element<Type>& x);
-    BstNode<Type>* Search(const Element<Type>& x);//�ݹ����
-    BstNode<Type>* IterSearch(const Element<Type>& x); //��������
+    BstNode<Type>* Search(const Element<Type>& x);//递归查找
+    BstNode<Type>* IterSearch(const Element<Type>& x); //遍历查找
 
     void InOrder();
     void LevelOrder();
+
+    //前序遍历
+    void PreOrder();
 
 private:
     BstNode<Type>* Search(BstNode<Type>* pNode, const Element<Type>& x);
@@ -64,7 +90,30 @@ private:
 };
 
 template<typename Type>
+void BSTree<Type>::PreOrder(){
+    std::stack<BstNode<Type>*> si;
+    si.push(root_);//跟节点入栈
+
+    while(!si.empty()){
+        BstNode<Type>* cur = si.top();
+        si.pop();//1.弹出打印
+        std::cout << cur->data_.key << " ";
+        //2.右子树入栈
+        if (cur->right_ != nullptr){
+            si.push(cur->right_);
+        }
+        //3.左子树入栈
+        if (cur->left_ != nullptr){
+            si.push(cur->left_);
+        }
+    }
+    std::cout << std::endl;
+}
+
+
+template<typename Type>
 void BSTree<Type>::InOrder() {
+    // std::cout << root_->data_.key << std::endl;
     InOrder(root_);
 }
 
