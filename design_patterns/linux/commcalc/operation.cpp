@@ -1,5 +1,9 @@
 #include "operation.h"
 
+/**
+ * 对Operation类具体实现
+*/
+
 Operation::Operation():a_(0),b_(0) {}
 
 Operation::~Operation() {}
@@ -20,6 +24,7 @@ double Operation::GetNumberB() {
     return b_;
 }
 
+//默认计算方式
 double Operation::GetResult() {
     return 0;
 }

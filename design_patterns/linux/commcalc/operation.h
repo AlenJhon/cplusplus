@@ -1,6 +1,11 @@
 #ifndef OPERATION_H_
 #define OPERATION_H_
 
+/**
+ * 定义计算器的接口方法主要是GetResult（）方便扩展成不同类型的计算
+ * 其它方法是一个计算器的基础能力定义（设置操作数，获取操作数）
+*/
+
 class Operation {
 public:
     Operation();

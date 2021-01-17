@@ -3,6 +3,10 @@
 
 #include "operation.h"
 
+/**
+ * 具体产品声明，统一继承自基类Operation，对GetResult接口重写
+*/
+
 class Add : public Operation {
 public:
     double GetResult();

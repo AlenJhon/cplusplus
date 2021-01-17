@@ -99,7 +99,7 @@ int main()
         else
         {
             total_recv_sz += rv;
-            printf("total_recv_sz: %d, recvbuf strlen():%d\n", total_recv_sz, strlen(recvbuf));
+            printf("total_recv_sz: %d, recvbuf strlen():%lu\n", total_recv_sz, strlen(recvbuf));
         }
         
 

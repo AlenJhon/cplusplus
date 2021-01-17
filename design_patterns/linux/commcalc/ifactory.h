@@ -2,6 +2,9 @@
 #define IFACTORY_H_
 
 #include "operation.h"
+/**
+ * 工厂声明文件，定义了不同生产类型
+*/
 
 class Factory {
 public:
