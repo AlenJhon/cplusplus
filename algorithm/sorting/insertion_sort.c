@@ -1,6 +1,10 @@
 #include <stdio.h>
 
-
+//插入排序是稳定排序,时间复杂度O(logn*n)
+//思路
+//1.从第二个元素开始遍历数组
+//2.每个位置i元素和 i-1 ~ 0 之间一个个比对如果小于将将后移一位(选择i合适的位置)
+//3.重复2步骤
 void insert_sort(int* a, const int n){
     for (int i=1; i < n; ++i){
         int j = i - 1;

@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <assert.h>
 
-/* µ¥ÏòÑ­»·Á´±íµÄÊµÏÖ
- * µÚÒ»¸ö½Úµã²»±£³ÖÊý¾ÝÓÃÓÚÅÐ¶Ï
+/* å•å‘å¾ªçŽ¯é“¾è¡¨çš„å®žçŽ°
+ * ç¬¬ä¸€ä¸ªèŠ‚ç‚¹ä¸ä¿æŒæ•°æ®ç”¨äºŽåˆ¤æ–­
  *
 */
 

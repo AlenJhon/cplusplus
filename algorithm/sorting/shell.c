@@ -3,7 +3,7 @@
 void shell_sort(long* arr, int len) {
 
     for (int gap = len/2; gap > 0; gap /= 2) {
-        //select sort
+        //insert sort
         for (int i = gap; i < len; ++i) {
             int j = i;
             long key = arr[j];
