@@ -6,7 +6,8 @@
 #define CHTBL_H
 
 #include <stdlib.h>
-#include "../list/allist.h"
+#include "../list/list.h"
+
 
 typedef struct CHTbl_
 {
@@ -15,11 +16,15 @@ typedef struct CHTbl_
     int     (*match)(const void* key1, const void* key2);//比较元素函数指针
     void    (*destroy)(void* data);//销毁函数指针
     int     size;//当前元素个数
-    PLIST   table;//桶
+    List    *table;//桶
 }CHTbl;
 
+typedef int (*f_hash)(const void* key);
+typedef int (*f_match)(const void* key1, const void* key2);
+typedef void (*f_destroy)(void* data);
+
 /* Public Interface */
-int chtbl_init(CHTbl* htbl, int buckets, int (*h)(const void* key), int (*match)(const void* key1, const void* key2), void (*destory)(void* data));
+int chtbl_init(CHTbl* htbl, int buckets, f_hash h, f_match match, f_destroy destroy);
 void chtbl_destroy(CHTbl* htbl);
 int chtbl_insert(CHTbl* htbl, const void* data);
 int chtbl_remove(CHTbl* htbl, void** data);

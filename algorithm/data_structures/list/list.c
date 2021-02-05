@@ -26,7 +26,7 @@ void list_destroy(List* list) {
     return;
 }
 
-
+/* 插入element元素指定位置之后,如果element是NULL将删除第一个元素*/
 int list_ins_next(List* list, ListElmt* element, const void* data) {
     ListElmt* new_element;
     /* Allocate storage for the element */
@@ -59,7 +59,7 @@ int list_ins_next(List* list, ListElmt* element, const void* data) {
     return 0;
 }
 
-
+/* 删除element指定元素之后的元素,如果element为NULL将删除第一个元素 */
 int list_rem_next(List* list, ListElmt* element, void** data) {
     ListElmt* old_element;
 
@@ -79,7 +79,24 @@ int list_rem_next(List* list, ListElmt* element, void** data) {
             list->tail = NULL;
         }
     } else {
-        
+        /* Handle removal from somewhere other than the head. */
+        if (element->next == NULL) {
+            return -1;
+        }
+
+        *data = element->next->data;
+        old_element = element->next;
+        element->next = element->next->next;
+
+        if (element->next == NULL) {
+            list->tail = element;
+        }
     }
 
+    /* Free the storage allocated by the abstract datatype. */
+    free(old_element);
+
+    /* Adjust the size of the list to account for the removed element */
+    list->size--;
+    return 0;
 }
