@@ -6,6 +6,6 @@ singledispatch==3.4.0.3
 six==1.11.0
 tornado==4.5.2
 torndb==0.3
-protobuf==3.11.3
+protobuf==3.15.0
 Jinja2==2.10.1
 openpyxl==2.5.14
